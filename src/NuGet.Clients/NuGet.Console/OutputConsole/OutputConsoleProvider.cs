@@ -5,6 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
@@ -110,5 +113,24 @@ namespace NuGetConsole
 
             return psProvider.Value;
         }
+
+        // TODO NK - Is nexus check needed
+        //public static async Task<bool> IsInClientModeAsync(CancellationToken token)
+        //{
+        //    await NuGetUIThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(token);
+        //    IVsShell shell = await ServiceLocator.GetGlobalServiceAsync<SVsShell, IVsShell>();
+        //    return shell.GetProperty((int)VSSPROPIDPrivate4.VSSPROPID_IsClientMode, out object value) == VSConstants.S_OK &&
+        //        value is bool isClientMode &&
+        //        isClientMode;
+        //}
+
+        //public static async Task<bool> IsInServerModeAsync(CancellationToken token)
+        //{
+        //    await NuGetUIThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(token);
+        //    IVsShell shell = await ServiceLocator.GetGlobalServiceAsync<SVsShell, IVsShell>();
+        //    return shell.GetProperty((int)__VSSPROPID11.VSSPROPID_ShellMode, out object value) == VSConstants.S_OK &&
+        //        value is int shellMode &&
+        //        shellMode == (int)__VSShellMode.VSSM_Server;
+        //}
     }
 }

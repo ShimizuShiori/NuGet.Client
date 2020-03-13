@@ -91,6 +91,8 @@ namespace Test.Utility.Signing
             //For performance reasons, dotnet/runtime only check to see if the store has been modified once a second.
             if (RuntimeEnvironmentHelper.IsLinux)
             {
+                Thread.Sleep(1500);
+                
                 var MaxTries = 30;
 
                 for (var i = 0; i < MaxTries; i++)

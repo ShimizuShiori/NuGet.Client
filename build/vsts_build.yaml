@@ -657,7 +657,7 @@ phases:
   condition: "and(succeeded(),eq(variables['RunTestsOnLinux'], 'true')) "
   queue:
     name: DDNuGet-Linux
-    timeoutInMinutes: 60
+    timeoutInMinutes: 100
     demands: sh
 
   steps:

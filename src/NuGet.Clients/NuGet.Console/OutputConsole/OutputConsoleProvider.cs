@@ -20,15 +20,10 @@ namespace NuGetConsole
     public class OutputConsoleProvider : IOutputConsoleProvider
     {
         private readonly IEnumerable<Lazy<IHostProvider, IHostMetadata>> _hostProviders;
-        private readonly Lazy<IConsole> _cachedOutputConsole;
+        private readonly AsyncLazy<IConsole> _cachedOutputConsole;
         private IAsyncServiceProvider _asyncServiceProvider;
 
         private readonly AsyncLazy<IVsOutputWindow> _vsOutputWindow;
-        private readonly AsyncLazy<IVsUIShell> _vsUIShell;
-        private IVsOutputWindow VsOutputWindow => NuGetUIThreadHelper.JoinableTaskFactory.Run(_vsOutputWindow.GetValueAsync);
-        private IVsUIShell VsUIShell => NuGetUIThreadHelper.JoinableTaskFactory.Run(_vsUIShell.GetValueAsync);
-
-        private bool _isOnlineEnvironmentsMode = true;
 
         [ImportingConstructor]
         OutputConsoleProvider(
@@ -51,18 +46,12 @@ namespace NuGetConsole
                 },
                 NuGetUIThreadHelper.JoinableTaskFactory);
 
-            _vsUIShell = new AsyncLazy<IVsUIShell>(
+            _cachedOutputConsole = new AsyncLazy<IConsole>(
                 async () =>
                 {
-                    return await asyncServiceProvider.GetServiceAsync<SVsUIShell, IVsUIShell>();
-                },
-                NuGetUIThreadHelper.JoinableTaskFactory);
-
-            _cachedOutputConsole = new Lazy<IConsole>(
-                () =>
-                {
-                    if (_isOnlineEnvironmentsMode)
+                    if (await IsInServerModeAsync(CancellationToken.None))
                     {
+                        // This is disposable, but it lives for the duration of the process.
                         return new ChannelOutputConsole(
                                 _asyncServiceProvider,
                                 GuidList.guidNuGetOutputWindowPaneGuid,
@@ -71,24 +60,27 @@ namespace NuGetConsole
                     }
                     else
                     {
-                        return new OutputConsole(VsOutputWindow, VsUIShell);
+                        var vsUIShell = await asyncServiceProvider.GetServiceAsync<SVsUIShell, IVsUIShell>();
+                        var vsOutputWindow = await _vsOutputWindow.GetValueAsync();
+                        return new OutputConsole(vsOutputWindow, vsUIShell);
                     }
-                });
+                }, NuGetUIThreadHelper.JoinableTaskFactory);
         }
 
-        public IOutputConsole CreateBuildOutputConsole()
+        public async Task<IOutputConsole> CreateBuildOutputConsoleAsync()
         {
-            return new BuildOutputConsole(VsOutputWindow);
+            var vsOutputWindow = await _vsOutputWindow.GetValueAsync();
+            return new BuildOutputConsole(vsOutputWindow);
         }
 
-        public IOutputConsole CreatePackageManagerConsole()
+        public async Task<IOutputConsole> CreatePackageManagerConsoleAsync()
         {
-            return _cachedOutputConsole.Value;
+            return await _cachedOutputConsole.GetValueAsync();
         }
 
-        public IConsole CreatePowerShellConsole()
+        public async Task<IConsole> CreatePowerShellConsoleAsync()
         {
-            var console = _cachedOutputConsole.Value;
+            var console = await _cachedOutputConsole.GetValueAsync();
 
             if (console.Host == null)
             {
@@ -114,23 +106,13 @@ namespace NuGetConsole
             return psProvider.Value;
         }
 
-        // TODO NK - Is nexus check needed
-        //public static async Task<bool> IsInClientModeAsync(CancellationToken token)
-        //{
-        //    await NuGetUIThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(token);
-        //    IVsShell shell = await ServiceLocator.GetGlobalServiceAsync<SVsShell, IVsShell>();
-        //    return shell.GetProperty((int)VSSPROPIDPrivate4.VSSPROPID_IsClientMode, out object value) == VSConstants.S_OK &&
-        //        value is bool isClientMode &&
-        //        isClientMode;
-        //}
-
-        //public static async Task<bool> IsInServerModeAsync(CancellationToken token)
-        //{
-        //    await NuGetUIThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(token);
-        //    IVsShell shell = await ServiceLocator.GetGlobalServiceAsync<SVsShell, IVsShell>();
-        //    return shell.GetProperty((int)__VSSPROPID11.VSSPROPID_ShellMode, out object value) == VSConstants.S_OK &&
-        //        value is int shellMode &&
-        //        shellMode == (int)__VSShellMode.VSSM_Server;
-        //}
+        public static async Task<bool> IsInServerModeAsync(CancellationToken token)
+        {
+            await NuGetUIThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(token);
+            IVsShell shell = await ServiceLocator.GetGlobalServiceAsync<SVsShell, IVsShell>();
+            return shell.GetProperty((int)__VSSPROPID11.VSSPROPID_ShellMode, out object value) == VSConstants.S_OK &&
+                value is int shellMode &&
+                shellMode == (int)__VSShellMode.VSSM_Server;
+        }
     }
 }

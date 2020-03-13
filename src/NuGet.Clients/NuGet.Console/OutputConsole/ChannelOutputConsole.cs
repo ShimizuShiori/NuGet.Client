@@ -48,8 +48,8 @@ namespace NuGetConsole
             {
                 IBrokeredServiceContainer container = (IBrokeredServiceContainer)await asyncServiceProvider.GetServiceAsync(typeof(SVsBrokeredServiceContainer));
                 Assumes.Present(container);
-                IServiceBroker sb = container.GetFullAccessServiceBroker();
-                return new ServiceBrokerClient(sb, _joinableTaskFactory);
+                IServiceBroker serviceBroker = container.GetFullAccessServiceBroker();
+                return new ServiceBrokerClient(serviceBroker, _joinableTaskFactory);
             }, _joinableTaskFactory);
         }
 
@@ -135,9 +135,7 @@ namespace NuGetConsole
                     {
                         _serviceBrokerClient.GetValue().Dispose();
                     }
-#pragma warning disable VSTHRD002 // Avoid problematic synchronous waits
                     CloseChannelAsync().GetAwaiter().GetResult();
-#pragma warning restore VSTHRD002 // Avoid problematic synchronous waits
                 }
                 _disposedValue = true;
             }

@@ -578,10 +578,7 @@ jobs:
     FullVstsBuildNumber: $[dependencies.Initialize_Build.outputs['updatebuildnumber.FullVstsBuildNumber']]
   condition: "and(succeeded(),eq(variables['RunFunctionalTestsOnWindows'], 'true')) "
   pool:
-    name: VSEng-MicroBuildSxS
-    demands: 
-        - DotNetFramework
-        - msbuild
+    vmImage: windows-latest
   strategy:
     matrix:
       IsDesktop:
@@ -711,11 +708,7 @@ jobs:
     FULLVSTSBUILDNUMBER: $[dependencies.Initialize_Build.outputs['updatebuildnumber.FullVstsBuildNumber']]
   condition: "and(succeeded(),eq(variables['RunTestsOnMac'], 'true')) "
   pool:
-    name: VSEng-MicroBuildMacCustom
-    demands: 
-    - sh
-    - VSTS_OS -equals Mac_Mojave_10.14
-    - Team -equals NuGet Client Team
+    vmImage: macos-latest
 
   steps:
   - task: PowerShell@2

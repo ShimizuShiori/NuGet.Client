@@ -125,9 +125,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Internal.VisualStudio.Shell.Embeddable" ExcludeAssets="build" />
     <PackageReference Include="Newtonsoft.Json" NoWarn="NU1605" />
-    <PackageReference Include="Microsoft.ServiceHub.Framework" NoWarn="NU1605">
-    <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" ExcludeAssets="build">
-    <PackageReference Include="Microsoft.VisualStudio.Shell.Embeddable" ExcludeAssets="build">
+    <PackageReference Include="Microsoft.ServiceHub.Framework" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" ExcludeAssets="build" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\nuget_256.png">
@@ -154,7 +153,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.9.3032" GeneratePathProperty="true"/>
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" GeneratePathProperty="true"/>
   </ItemGroup>
   <Import Project="$(BuildCommonDirectory)common.targets" />
   <Import Project="$(BuildCommonDirectory)embedinterop.targets" />

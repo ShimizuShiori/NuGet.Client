@@ -66,12 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.204" ExcludeAssets="runtime" />
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.4.1059" />
-    <PackageReference Include="Microsoft.VisualStudio.RpcContracts" Version="16.6.3-alpha" />
-    <PackageReference Include="Microsoft.VisualStudio.Workspace.VSIntegration" Version="16.3.43" />
-    <PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJsonVersionCore)" NoWarn="NU1605" />
-    <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="$(VSFrameworkVersion)" />
+    <PackageReference Include="Microsoft.VisualStudio.SDK" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" />
+    <PackageReference Include="Microsoft.VisualStudio.RpcContracts" />
+    <PackageReference Include="Microsoft.VisualStudio.Workspace.VSIntegration" />
+    <PackageReference Include="Newtonsoft.Json" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NuGet.VisualStudio.Common\NuGet.VisualStudio.Common.csproj">

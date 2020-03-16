@@ -188,7 +188,6 @@ namespace NuGet.SolutionRestoreManager
 
         private async Task LogToVSAsync(bool reportProgress, bool showAsOutputMessage, ILogMessage logMessage, RestoreOperationProgressUI progress)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
             var verbosityLevel = GetMSBuildLevel(logMessage.Level);
 
             // Progress dialog

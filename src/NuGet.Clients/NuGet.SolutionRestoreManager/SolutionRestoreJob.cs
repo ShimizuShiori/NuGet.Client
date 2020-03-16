@@ -434,7 +434,6 @@ namespace NuGet.SolutionRestoreManager
 
                 NuGetUIThreadHelper.JoinableTaskFactory.Run(async () =>
                 {
-                    ThreadHelper.ThrowIfNotOnUIThread();
                     foreach (var projectName in args.ProjectNames)
                     {
                         var exceptionMessage =

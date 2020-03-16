@@ -434,6 +434,7 @@ namespace NuGet.SolutionRestoreManager
 
                 NuGetUIThreadHelper.JoinableTaskFactory.Run(async () =>
                 {
+                    ThreadHelper.ThrowIfNotOnUIThread();
                     foreach (var projectName in args.ProjectNames)
                     {
                         var exceptionMessage =
@@ -551,7 +552,10 @@ namespace NuGet.SolutionRestoreManager
                 {
                     foreach (var logItem in validationLogs)
                     {
+                        // TODO NK - This is dumb, why does this need to be a UI thread?
+#pragma warning disable VSTHRD010
                         _logger.Log(logItem);
+#pragma warning restore VSTHRD010
                     }
                 }
             }

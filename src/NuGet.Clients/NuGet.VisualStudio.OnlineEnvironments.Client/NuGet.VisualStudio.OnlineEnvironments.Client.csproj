@@ -1,0 +1,48 @@
+<Project>
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'README.md'))\build\common.props" />
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+  <PropertyGroup>
+    <TargetFramework>$(NETFXTargetFramework)</TargetFramework>
+    <Shipping>true</Shipping>
+    <Pack>true</Pack>
+    <IncludeInVsix>true</IncludeInVsix>
+    <RootNamespace>NuGet.VisualStudio</RootNamespace>
+    <SkipShared>true</SkipShared>
+    <Description>NuGet VS Online Environments Client</Description>
+    <!-- VSIX -->
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <CreateVsixContainer>false</CreateVsixContainer>
+    <DeployExtension>false</DeployExtension>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.RpcContracts" Version="16.6.3-alpha" />
+    <PackageReference Include="Microsoft.VisualStudio.Workspace.VSIntegration" Version="16.3.43" />
+    <PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJsonVersionCore)" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="$(VSFrameworkVersion)" />
+    <ProjectReference Include="..\NuGet.VisualStudio.Common\NuGet.VisualStudio.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <VSCTCompile Include="Menus.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <SubType>Designer</SubType>
+    </VSCTCompile>
+    <EmbeddedResource Update="VSPackage.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="$(VSSDKBuildToolsVersion)" PrivateAssets="All" GeneratePathProperty="true" />
+  </ItemGroup>
+
+  <Import Project="$(BuildCommonDirectory)common.targets" />
+  <Import Project="$(BuildCommonDirectory)embedinterop.targets" />
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+  <Import Project="$(PkgMicrosoft_VSSDK_BuildTools)\tools\VSSDK\Microsoft.VsSDK.targets" Condition="'$(PkgMicrosoft_VSSDK_BuildTools)' != ''" />
+</Project>

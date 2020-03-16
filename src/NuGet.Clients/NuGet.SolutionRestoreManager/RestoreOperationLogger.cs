@@ -179,12 +179,16 @@ namespace NuGet.SolutionRestoreManager
         /// </summary>
         public sealed override Task LogAsync(ILogMessage logMessage)
         {
+#pragma warning disable VSTHRD010
             Log(logMessage);
+#pragma warning restore VSTHRD010
+
             return Task.CompletedTask;
         }
 
         private async Task LogToVSAsync(bool reportProgress, bool showAsOutputMessage, ILogMessage logMessage, RestoreOperationProgressUI progress)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var verbosityLevel = GetMSBuildLevel(logMessage.Level);
 
             // Progress dialog

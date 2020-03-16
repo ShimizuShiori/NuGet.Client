@@ -6,9 +6,9 @@ using System;
 namespace NuGet.VisualStudio.OnlineEnvironments.Client
 {
     /// <summary>
-    /// Specifies various constant values needed in the cloud environment.
+    /// Specifies various constant values needed in the online environments.
     /// </summary>
-    internal static class CloudEnvironment
+    internal static class OnlineEnvironments
     {
         /// <summary>
         /// Name of the Solution Explorer view responsible for showing the contents of a

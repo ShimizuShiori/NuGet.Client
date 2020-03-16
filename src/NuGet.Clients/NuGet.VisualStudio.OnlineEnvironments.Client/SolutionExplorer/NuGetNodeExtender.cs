@@ -12,7 +12,7 @@ namespace NuGet.VisualStudio.OnlineEnvironments.Client
     /// <summary>
     /// Extends the Solution Explorer in online environment scenarios by adding command handlers
     /// </summary>
-    [ExportNodeExtender(CloudEnvironment.LiveShareSolutionView)]
+    [ExportNodeExtender(OnlineEnvironments.LiveShareSolutionView)]
     internal sealed class NuGetNodeExtender : INodeExtender
     {
         /// <summary>

@@ -83,22 +83,7 @@ namespace NuGet.VisualStudio.OnlineEnvironments.Client
 
         private void ExecuteSolutionRestore(WorkspaceVisualNodeBase node)
         {
-            _taskContext.Factory.RunAsync(async () =>
-            {
-                var serviceContainer = await _serviceProvider.GetServiceAsync<SVsBrokeredServiceContainer, IBrokeredServiceContainer>();
-                var serviceBroker = serviceContainer.GetFullAccessServiceBroker();
-
-                var openDocumentService = await serviceBroker.GetProxyAsync<IOpenDocumentService>(VisualStudioServices.VS2019_4.OpenDocumentService);
-
-                try
-                {
-                    await openDocumentService.OpenDocumentAsync(node.NodeMoniker, cancellationToken: default);
-                }
-                finally
-                {
-                    (openDocumentService as IDisposable)?.Dispose();
-                }
-            });
+            // TODO: https://github.com/NuGet/Home/issues/9308
         }
 
         private static bool IsSolutionOnlySelection(List<WorkspaceVisualNodeBase> selection)

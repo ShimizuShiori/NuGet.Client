@@ -24,7 +24,7 @@
     <IncludeInVSIX>true</IncludeInVSIX>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CloudEnvironment.cs" />
+    <Compile Include="OnlineEnvironments.cs" />
     <Compile Include="Input\CommandGroup.cs" />
     <Compile Include="Input\PkgCmdIDList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

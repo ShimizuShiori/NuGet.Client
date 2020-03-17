@@ -54,8 +54,10 @@
           If you do not want an image next to your command, remove the Icon node /> -->
       <Button guid="guidNuGetClientPackageCmdSet" id="Command1Id" priority="0x0100" type="Button">
         <Parent guid="guidNuGetClientPackageCmdSet" id="MyMenuGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Restore NuGet Packages</ButtonText>
+          <ButtonText>Restore NuGet Packa&amp;ges</ButtonText>
           <CommandName>SolutionExplorer.Project.RestoreNuGetPackages</CommandName>
           <CanonicalName>SolutionExplorer.Project.RestoreNuGetPackages</CanonicalName>
           <LocCanonicalName>SolutionExplorer.Project.RestoreNuGetPackages</LocCanonicalName>

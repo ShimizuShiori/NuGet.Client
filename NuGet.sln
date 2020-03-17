@@ -240,7 +240,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuGet.Build.Tasks.Console",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuGet.Build.Tasks.Console.Test", "test\NuGet.Core.Tests\NuGet.Build.Tasks.Console.Test\NuGet.Build.Tasks.Console.Test.csproj", "{2011B5A4-2184-4F94-9897-E5BC2425DCDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet.VisualStudio.OnlineEnvironments.Client", "src\NuGet.Clients\NuGet.VisualStudio.OnlineEnvironments.Client\NuGet.VisualStudio.OnlineEnvironments.Client.csproj", "{290DB64D-74BA-45C5-BAC0-6E31A8AFD5CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet.VisualStudio.OnlineEnvironment.Client", "src\NuGet.Clients\NuGet.VisualStudio.OnlineEnvironment.Client\NuGet.VisualStudio.OnlineEnvironment.Client.csproj", "{290DB64D-74BA-45C5-BAC0-6E31A8AFD5CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

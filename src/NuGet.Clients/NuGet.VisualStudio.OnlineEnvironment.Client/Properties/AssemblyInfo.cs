@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.Shell;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NuGet.VisualStudio.OnlineEnvironments.Client2")]
+[assembly: AssemblyTitle("NuGet.VisualStudio.OnlineEnvironment.Client2")]
 [assembly: AssemblyDescription("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

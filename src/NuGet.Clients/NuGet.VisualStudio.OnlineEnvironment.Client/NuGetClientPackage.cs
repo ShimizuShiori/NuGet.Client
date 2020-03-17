@@ -4,7 +4,7 @@ using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace NuGet.VisualStudio.OnlineEnvironments.Client
+namespace NuGet.VisualStudio.OnlineEnvironment.Client
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.

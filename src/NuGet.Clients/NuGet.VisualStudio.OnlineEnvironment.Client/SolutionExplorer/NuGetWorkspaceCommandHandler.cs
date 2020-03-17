@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Threading;
 using Microsoft.VisualStudio.Workspace.VSIntegration.UI;
 
-namespace NuGet.VisualStudio.OnlineEnvironments.Client
+namespace NuGet.VisualStudio.OnlineEnvironment.Client
 {
     /// <summary>
     /// Extends the Solution Explorer in online environment scenarios.

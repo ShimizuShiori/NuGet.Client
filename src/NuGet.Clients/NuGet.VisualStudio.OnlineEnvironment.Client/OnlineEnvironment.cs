@@ -3,7 +3,7 @@
 
 using System;
 
-namespace NuGet.VisualStudio.OnlineEnvironments.Client
+namespace NuGet.VisualStudio.OnlineEnvironment.Client
 {
     /// <summary>
     /// Specifies various constant values needed in the online environment.

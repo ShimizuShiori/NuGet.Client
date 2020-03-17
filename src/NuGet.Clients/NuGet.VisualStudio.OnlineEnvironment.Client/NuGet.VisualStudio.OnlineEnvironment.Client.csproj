@@ -16,8 +16,8 @@
     <ProjectGuid>{290DB64D-74BA-45C5-BAC0-6E31A8AFD5CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NuGet.VisualStudio.OnlineEnvironments.Client</RootNamespace>
-    <AssemblyName>NuGet.VisualStudio.OnlineEnvironments.Client</AssemblyName>
+    <RootNamespace>NuGet.VisualStudio.OnlineEnvironment.Client</RootNamespace>
+    <AssemblyName>NuGet.VisualStudio.OnlineEnvironment.Client</AssemblyName>
     <TargetFrameworkVersion>$(NETFXTargetFrameworkVersion)</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <UseCodebase>true</UseCodebase>

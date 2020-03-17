@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Threading;
 using Microsoft.VisualStudio.Workspace.VSIntegration.UI;

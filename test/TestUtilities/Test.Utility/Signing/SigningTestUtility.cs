@@ -3,11 +3,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Pkcs;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TextManager.Interop;
 using NuGet.Common;
 using NuGet.Packaging.Core;
 using NuGet.Packaging.Signing;
@@ -664,40 +666,48 @@ namespace Test.Utility.Signing
         {
             string offlineRevocation = X509ChainStatusFlags.OfflineRevocation.ToString();
 
-            Assert.Contains(issues, issue =>
+            bool isOfflineRevocation = issues.Any(issue =>
                 issue.Code == NuGetLogCode.NU3018 &&
                 issue.Level == logLevel &&
-                issue.Message.Contains(offlineRevocation));
+                issue.Message.Split(new[] { ' ', ':' }).Where(WORDEXTFLAGS => WORDEXTFLAGS == offlineRevocation).Any());
+
+            Assert.True(isOfflineRevocation);
         }
 
         public static void AssertRevocationStatusUnknown(IEnumerable<ILogMessage> issues, LogLevel logLevel)
         {
             string revocationStatusUnknown = X509ChainStatusFlags.RevocationStatusUnknown.ToString();
 
-            Assert.Contains(issues, issue =>
+            bool isRevocationStatusUnknown = issues.Any(issue =>
                 issue.Code == NuGetLogCode.NU3018 &&
                 issue.Level == logLevel &&
-                issue.Message.Contains(revocationStatusUnknown));
+                issue.Message.Split(new[] {  ' ', ':' }).Where(WORDEXTFLAGS => WORDEXTFLAGS == revocationStatusUnknown).Any());
+
+            Assert.True(isRevocationStatusUnknown);
         }
 
         public static void AssertUntrustedRoot(IEnumerable<ILogMessage> issues, LogLevel logLevel)
         {
             string untrustedRoot = X509ChainStatusFlags.UntrustedRoot.ToString();
 
-            Assert.Contains(issues, issue =>
+            bool isUntrustedRoot = issues.Any(issue =>
                 issue.Code == NuGetLogCode.NU3018 &&
                 issue.Level == logLevel &&
-                issue.Message.Contains(untrustedRoot));
+                issue.Message.Split(new[] { ' ', ':' }).Where(WORDEXTFLAGS => WORDEXTFLAGS == untrustedRoot).Any()); ;
+
+            Assert.True(isUntrustedRoot);
         }
 
         public static void AssertNotTimeValid(IEnumerable<ILogMessage> issues, LogLevel logLevel)
         {
             string notTimeValid = X509ChainStatusFlags.NotTimeValid.ToString();
 
-            Assert.Contains(issues, issue =>
+            bool isNotTimeValid = issues.Any(issue =>
                 issue.Code == NuGetLogCode.NU3018 &&
                 issue.Level == logLevel &&
-                issue.Message.Contains(notTimeValid));
+                issue.Message.Split(new[] { ' ', ':' }).Where(WORDEXTFLAGS => WORDEXTFLAGS == notTimeValid).Any());
+
+            Assert.True(isNotTimeValid);
         }
 
         public static string AddSignatureLogPrefix(string log, PackageIdentity package, string source)

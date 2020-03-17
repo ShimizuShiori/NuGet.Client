@@ -83,11 +83,11 @@ namespace NuGet.Packaging.Signing
                     if ((chainStatus.Status & errorStatusFlags) != 0)
                     {
                         fatalStatuses.Add(chainStatus);
-                        logger.Log(LogMessage.CreateError(logCode, $"{chainStatus.Status} : {chainStatus.StatusInformation?.Trim()}"));
+                        logger.Log(LogMessage.CreateError(logCode, $"{chainStatus.Status}: {chainStatus.StatusInformation?.Trim()}"));
                     }
                     else if ((chainStatus.Status & warningStatusFlags) != 0)
                     {
-                        logger.Log(LogMessage.CreateWarning(logCode, $"{chainStatus.Status} : {chainStatus.StatusInformation?.Trim()}"));
+                        logger.Log(LogMessage.CreateWarning(logCode, $"{chainStatus.Status}: {chainStatus.StatusInformation?.Trim()}"));
                     }
                 }
 
@@ -229,7 +229,7 @@ namespace NuGet.Packaging.Signing
         internal static IEnumerable<string> GetStatusAndMessagesFromChainStatuses(IEnumerable<X509ChainStatus> chainStatuses)
         {
             return chainStatuses
-                .Select(x => $"{x.Status} : {x.StatusInformation?.Trim()}")
+                .Select(x => $"{x.Status}: {x.StatusInformation?.Trim()}")
                 .Where(x => !string.IsNullOrEmpty(x))
                 .Distinct(StringComparer.Ordinal)
                 .OrderBy(x => x, StringComparer.Ordinal);

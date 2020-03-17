@@ -9,7 +9,6 @@ using System.Security.Cryptography.Pkcs;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TextManager.Interop;
 using NuGet.Common;
 using NuGet.Packaging.Core;
 using NuGet.Packaging.Signing;
@@ -396,7 +395,7 @@ namespace Test.Utility.Signing
             var request = new CertificateRequest(subjectDN, algorithm, hashAlgorithm, RSASignaturePadding.Pkcs1);
 
             request.CertificateExtensions.Add(
-                new X509BasicConstraintsExtension(certificateAuthority: true, hasPathLengthConstraint: false, pathLengthConstraint: 0,  critical: true));
+                new X509BasicConstraintsExtension(certificateAuthority: true, hasPathLengthConstraint: false, pathLengthConstraint: 0, critical: true));
             request.CertificateExtensions.Add(
                 new X509SubjectKeyIdentifierExtension(request.PublicKey, critical: false));
             request.CertificateExtensions.Add(
@@ -681,7 +680,7 @@ namespace Test.Utility.Signing
             bool isRevocationStatusUnknown = issues.Any(issue =>
                 issue.Code == NuGetLogCode.NU3018 &&
                 issue.Level == logLevel &&
-                issue.Message.Split(new[] {  ' ', ':' }).Where(WORDEXTFLAGS => WORDEXTFLAGS == revocationStatusUnknown).Any());
+                issue.Message.Split(new[] { ' ', ':' }).Where(WORDEXTFLAGS => WORDEXTFLAGS == revocationStatusUnknown).Any());
 
             Assert.True(isRevocationStatusUnknown);
         }

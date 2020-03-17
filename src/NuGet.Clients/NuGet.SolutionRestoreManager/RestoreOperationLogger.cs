@@ -179,10 +179,7 @@ namespace NuGet.SolutionRestoreManager
         /// </summary>
         public sealed override Task LogAsync(ILogMessage logMessage)
         {
-#pragma warning disable VSTHRD010
             Log(logMessage);
-#pragma warning restore VSTHRD010
-
             return Task.CompletedTask;
         }
 
